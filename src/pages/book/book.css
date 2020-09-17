@@ -1,0 +1,23 @@
+.content-table{
+    
+    box-shadow: 0 0 5px gray;
+}
+.ant-table-thead > tr > th{
+    background-color: rgba(26,160,137, 0.5);
+}
+.ant-table-tbody > tr > td {
+    background-color: rgba(26,160,137, 0.5);
+}
+.add-button{
+    border: none;
+    margin: 20px auto;
+    color: rgb(29, 4, 4);
+    background-color: rgba(26,160,137, 0.5);
+    box-shadow: 0 0 5px gray;
+}
+.add-button:hover{
+    background-color: rgb(8, 95, 81);
+}
+.card-list{
+    background-color: rgb(8, 95, 81);
+}

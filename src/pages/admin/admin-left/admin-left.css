@@ -1,0 +1,12 @@
+.site-layout-background {
+    background-color:rgb(26,160,137);
+    box-shadow: 0 0 5px gray;
+  }
+  .site-layout-menu{
+    background-color:rgb(26,160,137);
+    font-size: 18px;
+  }
+  /* .site-layout-menu:active{
+    background-color:rgb(26,160,137);
+    color:slateblue;
+  } */

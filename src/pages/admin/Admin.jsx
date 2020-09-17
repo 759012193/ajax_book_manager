@@ -1,11 +1,16 @@
 import React from 'react'
 import {connect} from 'react-redux'
-import {Redirect} from 'react-router-dom'
-import {isLogin,removeAdmin,checkLogOut} from './../../api/adminApi'
-import {Button,message,Modal} from 'antd'
-import { ExclamationCircleOutlined } from '@ant-design/icons';
+import {Redirect,Switch,Router,Route} from 'react-router-dom'
+import {isLogin} from './../../api/adminApi'
+import {Layout, Breadcrumb} from 'antd'
+import './css/admin.css'
+import Admin_Header from './admin-header/admin-header'
+import Admin_Left from './admin-left/admin-left'
+import Home from './../home/home'
+import Book from './../book/book'
+const {Content} = Layout;
 
-const {confirm} =Modal;
+
 class Admin extends React.Component{
     render(){
         // 判断是否是登录的
@@ -17,42 +22,38 @@ class Admin extends React.Component{
             return <Redirect to={'/login'}/>
         }
         return(
-            <div>
-                <Button type="danger" className="exit-btn" onClick={()=>this._logOut()}>
-                    退出
-                </Button>
-            </div>
+            <Layout className='admin-panel'>
+    <Admin_Header />
+    <Layout>
+      <Admin_Left/>
+      <Layout style={{ padding: '0 24px 24px' }} className="site-layout-background">
+        <Breadcrumb style={{ margin: '16px 0' }}>
+          <Breadcrumb.Item>Home</Breadcrumb.Item>
+          <Breadcrumb.Item>List</Breadcrumb.Item>
+          <Breadcrumb.Item>App</Breadcrumb.Item>
+        </Breadcrumb>
+        <Content
+          className="site-layout-background"
+          style={{
+            padding: 24,
+            margin: 0,
+            minHeight: 280,
+          }}
+        >
+          <Switch>
+                               <Redirect from={"/"} to={"/home"} exact />
+                               <Route path={"/home"} component={Home}/>
+                               <Route path={"/book"} component={Book}/>
+                        </Switch>
+        </Content>
+      </Layout>
+    </Layout>
+  </Layout>
+            
         )
     }
 
-    // 退出登录
-    _logOut(){
-        confirm({
-            title: '确定退出登录吗?',
-            icon: <ExclamationCircleOutlined />,
-            okText: '确定',
-            cancelText: '取消',
-            onOk: ()=>{
-                // 发起退出登录请求
-                checkLogOut().then((result)=>{
-                    let res = result.data;
-                    if(res && res.status === 1){ // 退出登录成功
-                        // 清除本地的管理员信息
-                        removeAdmin();
-                        message.success(res.msg);
-                        // 跳转登录界面
-                        this.props.history.replace('/login');
-                    }else {
-                       message.error('退出登录失败, 服务器内部错误!');
-                    }
-                }).catch((error)=>{
-                    console.log(error);
-                    message.error('网络出现一点问题!');
-                });
-            },
-            onCancel: ()=>{}
-        })
-    }
+    
 }
 
 export default connect(null,null)(Admin);

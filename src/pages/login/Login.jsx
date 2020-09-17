@@ -25,7 +25,7 @@ class Login extends React.Component{
                      // 提示用户
                      message.success(res.msg);
                      // 把管理员信息本地化
-                    saveObj('yq_admin_key',res.data);
+                    saveObj(config.AJAX_ADMIN_KEY,res.data);
                     // 跳转到主面板
                     this.props.history.replace('/');
                 }else {
